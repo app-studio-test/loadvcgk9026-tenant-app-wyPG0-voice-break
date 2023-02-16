@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: loadvcgk9026-tenant-component
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: loadvcgk9026-tenant-component
+    app.kubernetes.io/part-of: loadvcgk9026-tenant-app
+  name: loadvcgk9026-tenant-component
+  namespace: loadvcgk9026-tenant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devfile-dotnet-deploy
+      app.kubernetes.io/instance: loadvcgk9026-tenant-component
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: devfile-dotnet-deploy
+        app.kubernetes.io/instance: loadvcgk9026-tenant-component
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio-qe/test-images:0de6cfef82754182a7afcf766810da3d
+        imagePullPolicy: Always
+        name: main
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 10m
+            memory: 100Mi
+status: {}
